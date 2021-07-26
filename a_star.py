@@ -47,15 +47,17 @@ def astar(maze, start, end):
         # Found the goal
         if current_node == end_node:
             path = []
+            weight = []
             current = current_node
             while current is not None:
                 path.append(current.position)
+                weight.append({"f":current.f,"g":current.g,"h":current.h})
                 current = current.parent
-            return path[::-1] # Return reversed path
+            return [path[::-1], weight[::-1]] # Return reversed path and weight
 
         # Generate children
         children = []
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: # Adjacent squares
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]: # Adjacent squares
 
             # Get node position
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
